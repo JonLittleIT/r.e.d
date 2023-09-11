@@ -1,0 +1,4 @@
+
+.history/**
+bugbounty-auto/amazon/amazonvenv/**
+*.sh
