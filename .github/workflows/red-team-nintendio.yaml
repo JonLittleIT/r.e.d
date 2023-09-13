@@ -1,0 +1,25 @@
+name: Sublister + httpx + Nuclei - Nintendo BBP
+on:
+    workflow_dispatch:
+jobs:
+  red-team-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Subfinder
+        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/subfinder:latest -silent -d nintendo.com -o /data/nin-subs.txt 
+      - name: Httpx
+        run: cat ${{ github.workspace }}/nin-subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o /data/nin-httpx.txt
+      - name: Nuclei
+        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/nuclei:latest -l /data/nin-httpx.txt -rl 100 -o /data/nuclei-scan.txt -severity critical,high -H researcher_crashoverrid3
+      - id: add_results
+        run: echo "::set-output name=results::$(cat ${{ github.workspace }}/nuclei-scan.txt)"
+      - name: Slack Notify
+        uses: rtCamp/action-slack-notify@v2.2.1
+        env:
+          SLACK_COLOR: green
+          SLACK_ICON: https://vignette3.wikia.nocookie.net/rvb/images/7/77/Red_Team_Jersey.jpg
+          SLACK_MESSAGE: ${{ steps.add_results.outputs.results }}
+          ATTACHMENT: nuclei-scan.txt
+          SLACK_TITLE: Nuclei Scan Results
+          SLACK_USERNAME: red-team
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
