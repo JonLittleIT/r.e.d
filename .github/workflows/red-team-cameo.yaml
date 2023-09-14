@@ -1,4 +1,4 @@
-name: Sublister + httpx + Nuclei - Nintendo BBP
+name: Sublister + httpx + Nuclei - Cameo BBP
 on:
     workflow_dispatch:
 jobs:
@@ -6,11 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Subfinder
-        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/subfinder:latest -silent -d nintendo.com -o /data/nin-subs.txt 
+        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/subfinder:latest -silent -d cameo.com -o /data/cmo-subs.txt
       - name: Httpx
-        run: cat ${{ github.workspace }}/nin-subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o /data/nin-httpx.txt
+        run: cat ${{ github.workspace }}/cmo-subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o /data/cmo-httpx.txt
       - name: Nuclei
-        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/nuclei:latest -l /data/nin-httpx.txt -o /data/nuclei-scan.txt -severity critical,high -H researcher_crashoverrid3
+        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/nuclei:latest -l /data/cmo-httpx.txt -rl 50 -o /data/nuclei-scan.txt -severity critical,high -H security_researcher
       - id: add_results
         run: echo "::set-output name=results::$(cat ${{ github.workspace }}/nuclei-scan.txt)"
       - name: Slack Notify
