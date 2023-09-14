@@ -10,7 +10,7 @@ jobs:
       - name: Httpx
         run: cat ${{ github.workspace }}/goat-subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o /data/goat-httpx.txt
       - name: Nuclei
-        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/nuclei:latest -l /data/goat-httpx.txt -o /data/nuclei-scan.txt -severity critical,high -H _security_researcher
+        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/nuclei:latest -l /data/goat-httpx.txt -o /data/nuclei-scan.txt -H _security_researcher
       - id: add_results
         run: echo "::set-output name=results::$(cat ${{ github.workspace }}/nuclei-scan.txt)"
       - name: Slack Notify
