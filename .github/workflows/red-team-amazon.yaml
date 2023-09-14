@@ -21,5 +21,6 @@ jobs:
           SLACK_MESSAGE: ${{ steps.add_results.outputs.results }}
           ATTACHMENT: nuclei-scan.txt
           SLACK_TITLE: Nuclei Scan Results
+          SLACK_FOOTER: Powered by - FalconCore
           SLACK_USERNAME: red-team
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
