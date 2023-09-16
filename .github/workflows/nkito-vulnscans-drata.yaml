@@ -17,17 +17,17 @@ jobs:
         run: cat ${{ github.workspace }}/subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o /data/httpx.txt
       - name: contents of httpx file
         run: cat httpx.txt
+      - name: make dir
+        run: mkdir /data/
       - name: Set permissions
         run: sudo chmod 700 /data/
-      - name: set plugins permissions recersive 
-        run: sudo chmod -R 700 /nikto/plugins/
       - name: Nikto Scans
         run: |
           while read -r line
-          do
-            # Sanitize URL to be a valid file name
-            file_name=$(echo $line | sed 's/[^a-zA-Z0-9]/_/g')
-            docker run --rm -v ${{ github.workspace }}:/data alpine/nikto -h $line -o /data/nikto_${file_name}.json
+        do
+            # Sanitize URL to be a valid file name (limiting to first 50 characters)
+          file_name=$(echo $line | sed 's/[^a-zA-Z0-9]/_/g' | cut -c 1-50)
+          docker run --rm -v ${{ github.workspace }}:/data alpine/nikto -h $line -o /data/nikto_${file_name}.json
           done < httpx.txt
       - name: Convert to SARIF
         run: python convert_to_sarif.py
