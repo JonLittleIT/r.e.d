@@ -1,4 +1,4 @@
-name: Drata Nkito Vuln Scans
+name: Drata Nikto Vuln Scans
 on:
     workflow_dispatch:
 jobs:
