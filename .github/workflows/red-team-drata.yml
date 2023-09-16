@@ -1,4 +1,4 @@
-name: Lesath Space Vuln Scans
+name: Drata Vuln Scans
 on:
     workflow_dispatch:
 jobs:
@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Subfinder
-        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/subfinder:latest -silent -d lesathspace.com -o /data/subs.txt
+        run: docker run -v ${{ github.workspace }}:/data projectdiscovery/subfinder:latest -silent -d drata.com -o /data/subs.txt
       - name: Httpx
         run: cat ${{ github.workspace }}/subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o /data/httpx.txt
       - name: Nuclei
