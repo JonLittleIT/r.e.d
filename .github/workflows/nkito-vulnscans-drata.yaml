@@ -24,10 +24,10 @@ jobs:
       - name: Nikto Scans
         run: |
           while read -r line
-        do
+          do
             # Sanitize URL to be a valid file name (limiting to first 50 characters)
-          file_name=$(echo $line | sed 's/[^a-zA-Z0-9]/_/g' | cut -c 1-50)
-          docker run --rm -v ${{ github.workspace }}:/data alpine/nikto -h $line -o /data/nikto_${file_name}.json
+            file_name=$(echo $line | sed 's/[^a-zA-Z0-9]/_/g' | cut -c 1-50)
+            docker run --rm -v ${{ github.workspace }}:/data alpine/nikto -h $line -o /data/nikto_${file_name}.json
           done < httpx.txt
       - name: Convert to SARIF
         run: python convert_to_sarif.py
