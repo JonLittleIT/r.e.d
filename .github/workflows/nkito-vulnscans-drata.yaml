@@ -16,7 +16,7 @@ jobs:
       - name: Httpx
         run: cat ${{ github.workspace }}/subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o /data/httpx.txt
       - name: contents of httpx file
-        run: cat /data/httpx.txt
+        run: cat httpx.txt
       - name: Nikto Scans
         run: |
           while read -r line
