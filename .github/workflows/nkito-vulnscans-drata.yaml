@@ -18,7 +18,7 @@ jobs:
       - name: contents of httpx file
         run: cat httpx.txt
       - name: Set permissions
-        run: sudo chmod 700 /data/
+        run: sudo chmod -R 755 /data/
       - name: Nikto Scans
         run: |
           while read -r line
