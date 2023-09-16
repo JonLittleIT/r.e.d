@@ -34,7 +34,7 @@ jobs:
         run: python convert_to_sarif.py
       - name: Upload SARIF files
         run: |
-          for file in ${{ github.workspace }}/*.sarif
+          for file nikto_.sarif
           do
             echo "Uploading $file"
             echo "::set-env name=SARIF_FILE::$file"

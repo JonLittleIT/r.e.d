@@ -1,7 +1,7 @@
 import json
 
 # Load the Nikto JSON data
-with open('nikto_*.json') as f:
+with open('nikto_.json') as f:
     nikto_data = json.load(f)
 
 # Create a basic SARIF object
