@@ -22,7 +22,7 @@ jobs:
           while read -r line
           do
             docker run --rm -v ${{ github.workspace }}:/tmp alpine/nikto -h $line -o /tmp/nikto_$line.json
-          done < /data/httpx.txt
+          done < httpx.txt
       - name: Convert to SARIF
         run: python convert_to_sarif.py
       - name: Upload SARIF files
