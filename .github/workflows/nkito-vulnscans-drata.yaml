@@ -14,7 +14,7 @@ jobs:
       - name: Subfinder
         run: docker run -v ${{ github.workspace }}:/data projectdiscovery/subfinder:latest -silent -d drata.com -o /data/subs.txt
       - name: Httpx
-        run: cat ${{ github.workspace }}/subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o httpx.txt
+        run: cat ${{ github.workspace }}/subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o /data/httpx.txt
       - name: contents of httpx file
         run: cat httpx.txt
       - name: Nikto Scans
