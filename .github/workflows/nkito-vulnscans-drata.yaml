@@ -21,7 +21,7 @@ jobs:
         run: |
           while read -r line
           do
-            docker run --rm -v ${{ github.workspace }}:/tmp alpine/nikto -h $line -o /tmp/nikto_$line.json
+            docker run --rm -v ${{ github.workspace }}:/data alpine/nikto -h $line -o /data/nikto_$line.json
           done < httpx.txt
       - name: Convert to SARIF
         run: python convert_to_sarif.py
