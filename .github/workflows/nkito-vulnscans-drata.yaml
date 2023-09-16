@@ -17,8 +17,6 @@ jobs:
         run: cat ${{ github.workspace }}/subs.txt | docker run -v ${{ github.workspace }}:/data -i projectdiscovery/httpx -o /data/httpx.txt
       - name: contents of httpx file
         run: cat httpx.txt
-      - name: make dir
-        run: mkdir /data/
       - name: Set permissions
         run: sudo chmod 700 /data/
       - name: Nikto Scans
