@@ -3,7 +3,9 @@ red teaming infra and automations
 
 Used for automated testing appsec tests and reporting.
 
+Only set parameters for what each bounty program allows according to scope these are just examples of how this system can work for your company.
 
+## Disclaimer: I am not responsible for you testing a companies security posture with out permission.
 
 
 ```mermaid
